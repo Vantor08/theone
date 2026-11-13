@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#85253D">
+<title>{{ page_title | default: shop.name }}</title>
+<link rel="canonical" href="{{ canonical_url }}">
+{{ content_for_header }}
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+{{ 'theme.css' | asset_url | stylesheet_tag }}
+{{ 'winning.css' | asset_url | stylesheet_tag }}
+<script>
+window.VALLORE_PRODUCT = {
+ url:"/products/electrolyte-magnesium-powder-agent", cartUrl:"/cart",
+ variants:[
+  {id:45795060056240,bundle:"1 Pouch",flavor:"Blue Raspberry",price:3299,available:true,plans:[{id:3071770800,name:"Deliver every 3 weeks",price:2639},{id:3071803568,name:"Deliver every 6 weeks",price:2639},{id:3071836336,name:"Deliver every 9 weeks",price:2639}]},
+  {id:45795060089008,bundle:"1 Pouch",flavor:"Red Strawberry",price:3299,available:true,plans:[{id:3071770800,name:"Deliver every 3 weeks",price:2639},{id:3071803568,name:"Deliver every 6 weeks",price:2639},{id:3071836336,name:"Deliver every 9 weeks",price:2639}]},
+  {id:45795974217904,bundle:"2 Pouches",flavor:"Blue Raspberry",price:4999,available:true,plans:[{id:3071770800,name:"Deliver every 3 weeks",price:3999},{id:3071803568,name:"Deliver every 6 weeks",price:3999},{id:3071836336,name:"Deliver every 9 weeks",price:3999}]},
+  {id:45795974250672,bundle:"3+1 Free (4 Pouches)",flavor:"Blue Raspberry",price:5999,available:true,plans:[{id:3071770800,name:"Deliver every 3 weeks",price:4799},{id:3071803568,name:"Deliver every 6 weeks",price:4799},{id:3071836336,name:"Deliver every 9 weeks",price:4799}]},
+  {id:45795974283440,bundle:"2 Pouches",flavor:"Red Strawberry",price:4999,available:true,plans:[{id:3071770800,name:"Deliver every 3 weeks",price:3999},{id:3071803568,name:"Deliver every 6 weeks",price:3999},{id:3071836336,name:"Deliver every 9 weeks",price:3999}]},
+  {id:45795974316208,bundle:"3+1 Free (4 Pouches)",flavor:"Red Strawberry",price:5999,available:true,plans:[{id:3071770800,name:"Deliver every 3 weeks",price:4799},{id:3071803568,name:"Deliver every 6 weeks",price:4799},{id:3071836336,name:"Deliver every 9 weeks",price:4799}]}
+ ]
+};
+window.VALLORE_ASSETS = {
+  "b_flat.jpg":"{{ 'b_flat.jpg' | asset_url }}",
+  "b_group.jpg":"{{ 'b_group.jpg' | asset_url }}",
+  "b_pour.jpg":"{{ 'b_pour.jpg' | asset_url }}",
+  "b_well.jpg":"{{ 'b_well.jpg' | asset_url }}",
+  "ba_cycle.gif":"{{ 'ba_cycle.gif' | asset_url }}",
+  "blue_hero2.jpg":"{{ 'blue_hero2.jpg' | asset_url }}",
+  "blue_sheet.jpg":"{{ 'blue_sheet.jpg' | asset_url }}",
+  "blue_v1.png":"{{ 'blue_v1.png' | asset_url }}",
+  "blue_v2.png":"{{ 'blue_v2.png' | asset_url }}",
+  "emotional_new.jpg":"{{ 'emotional_new.jpg' | asset_url }}",
+  "fc_blue.jpg":"{{ 'fc_blue.jpg' | asset_url }}",
+  "fc_red.jpg":"{{ 'fc_red.jpg' | asset_url }}",
+  "gal_decades.jpg":"{{ 'gal_decades.jpg' | asset_url }}",
+  "gal_pocket.jpg":"{{ 'gal_pocket.jpg' | asset_url }}",
+  "handled_new.jpg":"{{ 'handled_new.jpg' | asset_url }}",
+  "ing_inositol.jpg":"{{ 'ing_inositol.jpg' | asset_url }}",
+  "ing_magnesium.jpg":"{{ 'ing_magnesium.jpg' | asset_url }}",
+  "ing_rhodiola.jpg":"{{ 'ing_rhodiola.jpg' | asset_url }}",
+  "ing_shatavari.jpg":"{{ 'ing_shatavari.jpg' | asset_url }}",
+  "ing_theobromine.jpg":"{{ 'ing_theobromine.jpg' | asset_url }}",
+  "ing_vitc.jpg":"{{ 'ing_vitc.jpg' | asset_url }}",
+  "jpeg_6_63780de49851.jpg":"{{ 'jpeg_6_63780de49851.jpg' | asset_url }}",
+  "life_pour.jpg":"{{ 'life_pour.jpg' | asset_url }}",
+  "pink_hero2.jpg":"{{ 'pink_hero2.jpg' | asset_url }}",
+  "prod_hero.jpg":"{{ 'prod_hero.jpg' | asset_url }}",
+  "r_bowl.jpg":"{{ 'r_bowl.jpg' | asset_url }}",
+  "r_flat.jpg":"{{ 'r_flat.jpg' | asset_url }}",
+  "r_group.jpg":"{{ 'r_group.jpg' | asset_url }}",
+  "r_pour.jpg":"{{ 'r_pour.jpg' | asset_url }}",
+  "real_car.jpg":"{{ 'real_car.jpg' | asset_url }}",
+  "real_desk.jpg":"{{ 'real_desk.jpg' | asset_url }}",
+  "real_kitchen.jpg":"{{ 'real_kitchen.jpg' | asset_url }}",
+  "real_mirror.jpg":"{{ 'real_mirror.jpg' | asset_url }}",
+  "real_outdoor.jpg":"{{ 'real_outdoor.jpg' | asset_url }}",
+  "real_pouch.jpg":"{{ 'real_pouch.jpg' | asset_url }}",
+  "rev_rachel.jpg":"{{ 'rev_rachel.jpg' | asset_url }}",
+  "slide_pour.jpg":"{{ 'slide_pour.jpg' | asset_url }}",
+  "slide_why.jpg":"{{ 'slide_why.jpg' | asset_url }}",
+  "stick_blue.png":"{{ 'stick_blue.png' | asset_url }}",
+  "stick_trans.png":"{{ 'stick_trans.png' | asset_url }}",
+  "thumb_0.png":"{{ 'thumb_0.png' | asset_url }}",
+  "thumb_1.png":"{{ 'thumb_1.png' | asset_url }}",
+  "thumb_2.png":"{{ 'thumb_2.png' | asset_url }}",
+  "thumb_3.png":"{{ 'thumb_3.png' | asset_url }}",
+  "thumb_4.png":"{{ 'thumb_4.png' | asset_url }}",
+  "thumb_5.png":"{{ 'thumb_5.png' | asset_url }}",
+  "thumb_6.png":"{{ 'thumb_6.png' | asset_url }}",
+  "thumb_7.png":"{{ 'thumb_7.png' | asset_url }}",
+  "thumb_8.png":"{{ 'thumb_8.png' | asset_url }}",
+  "thumb_facts.jpg":"{{ 'thumb_facts.jpg' | asset_url }}",
+  "thumb_fl.jpg":"{{ 'thumb_fl.jpg' | asset_url }}",
+  "thumb_ing.jpg":"{{ 'thumb_ing.jpg' | asset_url }}"
+};
+function vA(n){return (window.VALLORE_ASSETS&&window.VALLORE_ASSETS[n])||n;}
+</script>
+</head>
+<body data-view="product">
+{{ content_for_layout }}
+</body>
+</html>

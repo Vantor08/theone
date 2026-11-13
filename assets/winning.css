@@ -1,0 +1,519 @@
+/* ===================================================================
+   VALLORE — WINNING LAYER v2  (natural / branded, Grüns-inspired)
+   loads after theme.css. Retunes palette, removes AI glow,
+   gamified pop-up, bold pain, founder sacrifice, ticker, clean nav.
+   =================================================================== */
+
+/* ---------- 0. NATURAL / BRANDED PALETTE (warmer, calmer) ---------- */
+:root{
+  --cream:#FAF3EA;        /* warm oat base */
+  --cream-2:#FFFCF7;
+  --blush:#F1DADD;        /* muted rose */
+  --blush-soft:#FBF2EE;   /* warm, barely-pink */
+  --berry:#B6425B;        /* refined berry (less neon) */
+  --berry-deep:#93384B;
+  --coral:#B6425B;        /* match accent for cohesion */
+  --coral-deep:#93384B;
+  --burgundy:#7C2A40;
+  --plum:#5A2440;
+  --plum-deep:#40162C;
+  --lemon:#E6B24A;        /* warm honey accent */
+  --ink:#36232D;
+  --ink-soft:#7A636B;
+  --line:#ECDED9;
+}
+body{background:var(--cream)}
+/* soften the hardcoded candy-pink surfaces to warm, natural tones */
+.stockbar{background:var(--blush-soft)!important;border-color:#EAD3D6!important}
+.flavor-options input:checked+span{background:var(--blush-soft)!important;border-color:var(--berry)!important;color:var(--plum)!important}
+.sub-card.sel{background:linear-gradient(180deg,#fff,var(--blush-soft))!important;border:2px solid var(--berry)!important}
+.buyopt.sel{background:#fff!important}
+.mini-rev,.authority,.promo-box{background:var(--blush-soft)!important}
+.ing-card .ing-dose,.ing-dose{background:var(--blush-soft)!important}
+.why-panel{background:#C96C86!important}      /* softer than hot pink */
+.gd-pink{background:#CE7A92!important}
+
+/* ---------- 1. GAMIFIED POP-UP (Grüns "try your luck") ---------- */
+.wn-ov{position:fixed;inset:0;z-index:4000;background:rgba(40,20,28,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:18px;opacity:0;visibility:hidden;transition:opacity .28s,visibility .28s}
+.wn-ov.show{opacity:1;visibility:visible}
+.wn-modal{background:#fff;border-radius:22px;max-width:860px;width:100%;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;box-shadow:0 30px 80px rgba(40,20,28,.32);transform:translateY(12px);transition:transform .3s}
+.wn-ov.show .wn-modal{transform:none}
+/* left lifestyle panel on a soft warm gradient (not glowy) */
+.wn-mimg{position:relative;overflow:hidden;background:linear-gradient(150deg,#FBF4EA 0%,#F3E7D9 55%,#EADFCF 100%)}
+.wn-mimg .wn-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.wn-mimg .wn-float{position:absolute;color:var(--lemon);pointer-events:none;filter:none}
+.wn-mimg .wn-f1{top:12%;right:16%;font-size:26px;opacity:.9}
+.wn-mimg .wn-f2{bottom:20%;left:10%;font-size:16px;opacity:.75}
+.wn-mimg .wn-f3{top:46%;right:9%;font-size:14px;opacity:.6}
+.wn-mbody{padding:34px 34px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.wn-close{position:absolute;top:14px;right:16px;background:none;border:0;font-size:24px;line-height:1;color:#bfa9af;cursor:pointer;z-index:2}
+.wn-logo{font-family:'Fraunces',serif;font-weight:600;font-size:24px;letter-spacing:-.02em;color:var(--plum);margin-bottom:16px}
+.wn-game-title{font-family:'Fraunces',serif;font-weight:600;font-size:30px;line-height:1.02;color:var(--plum-deep);margin:0 0 6px}
+.wn-sub{font-size:14px;color:var(--ink-soft);margin:0 0 18px}
+.wn-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.wn-card{aspect-ratio:3/4;border:2px solid var(--berry);border-radius:12px;background:#fff;color:var(--berry);font-family:'Fraunces',serif;font-size:22px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .18s,background .2s,box-shadow .2s;user-select:none}
+.wn-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(90,36,64,.08)}
+.wn-card.flipped{background:var(--blush-soft);cursor:default;transform:none;animation:wnflip .3s ease}
+.wn-card.matched{background:var(--berry);color:#fff;border-color:var(--berry)}
+@keyframes wnflip{from{transform:rotateY(70deg)}to{transform:none}}
+.wn-hint{font-size:12px;color:var(--ink-soft);text-align:center;margin-top:12px}
+.wn-decline{background:none;border:0;color:#bfa9af;font-size:12px;text-decoration:underline;text-underline-offset:2px;cursor:pointer;margin:12px auto 0;display:block}
+/* win state */
+.wn-win{text-align:center;animation:wnflip .35s ease}
+.wn-win-badge{display:inline-block;font-family:'Fraunces',serif;font-weight:600;font-size:15px;letter-spacing:.04em;color:#fff;background:var(--berry);border-radius:999px;padding:7px 18px;margin-bottom:14px}
+.wn-win h3{font-family:'Fraunces',serif;font-weight:500;font-size:26px;color:var(--plum-deep);margin:0 0 8px;line-height:1.08}
+.wn-win p{font-size:14px;color:var(--ink-soft);margin:0 0 16px}
+.wn-form{display:flex;flex-direction:column;gap:10px}
+.wn-form input{border:1.5px solid #E6D3D7;border-radius:11px;padding:14px 15px;font-family:inherit;font-size:15px;color:var(--ink)}
+.wn-form input:focus{outline:none;border-color:var(--berry)}
+.wn-cta{border:0;border-radius:11px;background:var(--burgundy);color:#fff;font-family:inherit;font-weight:700;font-size:15px;padding:15px;cursor:pointer;transition:background .18s}
+.wn-cta:hover{background:var(--plum-deep)}
+.wn-fine{font-size:11.5px;color:var(--ink-soft);text-align:center;margin-top:11px;line-height:1.5}
+.wn-fine b{color:var(--burgundy);letter-spacing:.04em}
+.wn-code-reveal{display:flex;align-items:center;gap:10px;margin:4px 0;background:var(--blush-soft);border:1.5px dashed var(--berry);border-radius:12px;padding:13px 16px}
+.wn-code-reveal b{font-family:'Fraunces',serif;font-size:21px;color:var(--burgundy);letter-spacing:.06em}
+.wn-code-reveal span{font-size:12px;color:var(--ink-soft)}
+.wn-copy2{margin-left:auto;background:var(--plum);color:#fff;border:0;border-radius:8px;padding:8px 13px;font-size:12px;font-weight:700;cursor:pointer}
+@media(max-width:700px){.wn-modal{grid-template-columns:1fr;max-width:430px}.wn-mimg{min-height:140px}.wn-mbody{padding:26px 24px}.wn-game-title{font-size:26px}}
+
+/* ---------- 2. BOLD PAIN BAND ---------- */
+.wn-pain{background:radial-gradient(ellipse at 70% 0,#3a1526,#241019 60%);color:#fff;padding:74px 0}
+.wn-pain .wrap{max-width:1000px}
+.wn-pain .wn-peye{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#E59FB1;text-align:center;margin-bottom:16px}
+.wn-pain h2{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(28px,4.2vw,42px);line-height:1.1;text-align:center;color:#fff;max-width:19ch;margin:0 auto 12px}
+.wn-pain h2 em{font-style:normal;color:#EBA7BA}
+.wn-pain .wn-plead{text-align:center;color:rgba(255,255,255,.72);font-size:17px;max-width:54ch;margin:0 auto 38px}
+.wn-pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:760px;margin:0 auto}
+.wn-pitem{display:flex;gap:13px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:18px}
+.wn-pitem .wn-x{flex:0 0 auto;width:24px;height:24px;border-radius:50%;background:rgba(235,167,186,.16);color:#EBA7BA;display:flex;align-items:center;justify-content:center;font-size:14px;margin-top:1px}
+.wn-pitem p{font-size:15px;color:rgba(255,255,255,.9);line-height:1.45;margin:0}
+.wn-pitem p b{color:#fff}
+.wn-presign{text-align:center;margin-top:32px;font-family:'Fraunces',serif;font-style:italic;font-size:19px;color:#fff}
+.wn-presign span{color:#EBA7BA}
+@media(max-width:640px){.wn-pgrid{grid-template-columns:1fr}.wn-pain{padding:52px 0}}
+
+/* ---------- 3. BUNDLES — NATURAL (no AI glow) ---------- */
+.buyopt{position:relative;border-radius:16px;transition:border-color .2s,box-shadow .2s,background .2s;background:#fff}
+.buyopt.sel{border-color:var(--berry);box-shadow:0 4px 16px rgba(90,36,64,.08)}
+.bags button,.once-bags button{position:relative;border-radius:11px;font-weight:600;transition:all .15s;overflow:visible}
+.bags button.on,.once-bags button.on{box-shadow:0 2px 8px rgba(90,36,64,.12)}
+.sub-card.sel{box-shadow:0 4px 16px rgba(90,36,64,.09)!important}
+/* value ribbons */
+.wn-rib{position:absolute;top:-9px;left:50%;transform:translateX(-50%);z-index:3;font-size:8.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.wn-rib.pop{background:var(--berry)}
+.wn-rib.val{background:#2f8f5c}
+/* premium but calm ATC */
+.addcart{background:var(--burgundy)!important;box-shadow:0 2px 10px rgba(90,36,64,.14)!important;font-weight:700}
+.addcart:hover{background:var(--plum-deep)!important}
+
+/* ---------- 4. FOUNDER SACRIFICE ---------- */
+.founder{background:radial-gradient(ellipse at 20% 0,#4f1d35,#361428 65%)}
+.wn-founder-tag{display:inline-block;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#E59FB1;margin-bottom:16px}
+.founder .wn-pull{font-family:'Fraunces',serif;font-style:italic;font-size:clamp(21px,2.8vw,28px);line-height:1.3;color:#fff;max-width:24ch;margin:0 0 20px}
+.founder .wn-pull span{color:#EBA7BA}
+.founder .wn-fbody{color:#D8C2CC;font-size:16px;max-width:60ch;line-height:1.7;margin-bottom:12px}
+.wn-fsacrifice{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.06);border-left:3px solid var(--berry);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0;max-width:60ch}
+.wn-fsacrifice .wn-si{flex:0 0 auto;color:#EBA7BA;font-size:20px;line-height:1.2}
+.wn-fsacrifice p{color:#fff;font-size:15px;line-height:1.55;margin:0}
+.wn-fsacrifice p b{color:#EBA7BA}
+
+/* ---------- 5. POLISH (subtle, natural) ---------- */
+.ing-card,.wv-card,.clin-card{transition:transform .18s,box-shadow .18s}
+.ing-card:hover,.wv-card:hover,.clin-card:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(90,36,64,.06)}
+
+/* ---------- 6. ONE-LINE SCROLLING TICKER ---------- */
+.bf-anno.wn-ticker{display:block;padding:0;overflow:hidden;white-space:nowrap;position:relative}
+.wn-ttrack{display:inline-flex;align-items:center;will-change:transform;animation:wnticker 28s linear infinite;padding:9px 0}
+.wn-ttrack span{display:inline-flex;align-items:center;font-size:12.5px;font-weight:600;letter-spacing:.04em;padding:0 16px;color:#fff;white-space:nowrap}
+.wn-ttrack span b{color:#F3D28A;font-weight:800;margin-left:5px}
+.wn-ttrack .wn-dot{color:#E6B24A;opacity:.6;padding:0 2px;font-size:10px}
+@keyframes wnticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.bf-anno.wn-ticker:hover .wn-ttrack{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.wn-ttrack{animation:none;padding-left:16px}}
+
+/* ---------- 7. CLEAN ONE-LINE NAV (mobile) ---------- */
+@media(max-width:760px){
+  .navrow{flex-wrap:nowrap!important;min-height:60px;gap:12px;align-items:center}
+  .navlinks{display:none!important}
+  .navrow>.btn{margin-left:auto;padding:10px 18px;font-size:13px}
+  .logo{font-size:22px}
+}
+
+/* ---------- 8. PRICE ABOVE THE FOLD (mobile head) ---------- */
+.wn-mh-price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:14px}
+.wn-mh-price b{font-family:'Fraunces',serif;font-size:30px;font-weight:600;color:var(--plum-deep);line-height:1}
+.wn-mh-price s{font-size:15px;color:#b49aa5}
+.wn-mh-cta{display:inline-block;margin-top:11px;font-size:13.5px;font-weight:700;color:var(--berry);text-decoration:underline;text-underline-offset:3px}
+
+/* ===== v3: remove buy-box image trust grid ===== */
+.buy-trust-grid{display:none!important}
+
+/* ===== v3: COMPETITOR-STYLE TABS ===== */
+.wn-tabs{max-width:1160px;margin:0 auto;padding:10px 24px 0}
+.wn-tabwrap{border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}
+.wn-tabbar{display:flex;overflow-x:auto;border-bottom:1px solid var(--line);scrollbar-width:none}
+.wn-tabbar::-webkit-scrollbar{display:none}
+.wn-tab{flex:0 0 auto;padding:15px 20px;font-size:14px;font-weight:600;color:var(--ink-soft);background:none;border:0;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;font-family:inherit;margin-bottom:-1px;transition:color .15s,border-color .15s}
+.wn-tab.on{color:var(--berry);border-bottom-color:var(--berry)}
+.wn-tabpanel{display:none;padding:24px}
+.wn-tabpanel.on{display:block}
+.wn-tp-benefits{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0}
+.wn-tp-benefits li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--plum-deep);font-weight:500}
+.wn-tp-benefits li::before{content:"\2713";color:var(--berry);font-weight:800;flex:0 0 auto}
+.wn-ing-list{list-style:none;display:flex;flex-direction:column;gap:11px;margin:0}
+.wn-ing-list li{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px;font-size:14px}
+.wn-ing-list li:last-child{border-bottom:0;padding-bottom:0}
+.wn-ing-list b{color:var(--plum-deep);font-family:'Fraunces',serif;font-weight:500}
+.wn-ing-list span{color:var(--berry);font-weight:700;white-space:nowrap}
+.wn-steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.wn-steps3 .wn-s{text-align:center}
+.wn-steps3 .wn-sn{width:40px;height:40px;border-radius:50%;background:var(--blush-soft);color:var(--berry);font-family:'Fraunces',serif;font-weight:600;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.wn-steps3 b{display:block;color:var(--plum-deep);margin-bottom:4px}
+.wn-steps3 p{font-size:13px;color:var(--ink-soft);line-height:1.5;margin:0}
+.wn-tp-rev{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.wn-tp-rev .wn-big{font-family:'Fraunces',serif;font-size:46px;color:var(--berry);line-height:1}
+.wn-tp-rev .wn-rq{flex:1;min-width:220px;font-style:italic;color:var(--ink);font-size:14.5px;line-height:1.6}
+.wn-tp-rev .wn-rq b{font-style:normal;color:var(--plum)}
+@media(max-width:640px){.wn-tp-benefits,.wn-steps3{grid-template-columns:1fr}.wn-tabpanel{padding:18px}.wn-tabs{padding-left:18px;padding-right:18px}}
+
+/* ===== v3: STICKY MOBILE ADD-TO-CART ===== */
+.wn-sticky{display:none}
+@media(max-width:760px){
+  .wn-sticky{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:300;align-items:center;gap:12px;background:rgba(255,252,247,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:11px 16px calc(11px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 20px rgba(90,36,64,.08)}
+  .wn-sticky .wn-sk-info{display:flex;align-items:baseline;gap:7px;line-height:1}
+  .wn-sticky .wn-sk-info b{font-family:'Fraunces',serif;font-size:20px;color:var(--plum-deep)}
+  .wn-sticky .wn-sk-info s{font-size:12px;color:#b49aa5}
+  .wn-sticky .wn-sk-btn{margin-left:auto;flex:0 0 auto;background:var(--burgundy);color:#fff;border:0;border-radius:999px;padding:13px 24px;font-family:inherit;font-weight:700;font-size:14.5px;cursor:pointer}
+  body{padding-bottom:76px!important}
+}
+
+/* ===== v4: Grüns-style simplify (hide redundant buy-box text) ===== */
+.buybox .authority,.buybox .mini-rev,.buybox .purchase-help,.buybox .sc-note{display:none!important}
+
+/* ===== v4: clean trust badges (Grüns-style) ===== */
+.wn-tbadges{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 16px}
+.wn-tb{display:flex;flex-direction:column;align-items:center;text-align:center;gap:7px;background:var(--cream-2);border:1px solid var(--line);border-radius:12px;padding:12px 6px}
+.wn-tbi{color:var(--berry);width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+.wn-tbi svg{width:22px;height:22px}
+.wn-tb small{font-size:10.5px;color:var(--plum-deep);font-weight:600;line-height:1.3}
+
+/* ===== v4: option perks (reveal on selected) ===== */
+.wn-perks{list-style:none;margin:13px 0 2px;padding:13px 0 0;border-top:1px solid var(--line);display:none;flex-direction:column;gap:8px}
+.buyopt.sel .wn-perks{display:flex}
+.wn-perks li{font-size:13px;color:var(--plum-deep);display:flex;align-items:flex-start;gap:9px;line-height:1.35}
+.wn-perks li::before{content:"\2713";color:#2f8f5c;font-weight:800;flex:0 0 auto}
+.wn-perks.wn-off li{color:var(--ink-soft)}
+.wn-perks.wn-off li::before{content:"\2715";color:#cf9aa6}
+.wn-perks.wn-off li.yes{color:var(--plum-deep)}
+.wn-perks.wn-off li.yes::before{content:"\2713";color:#2f8f5c}
+
+/* ===== v4: one-time radio dot (match subscribe) ===== */
+.buyopt[data-opt="once"] .top{display:flex;align-items:center}
+.wn-oradio{width:18px;height:18px;border-radius:50%;border:2px solid #d4c4cd;flex:0 0 auto;margin-right:10px;position:relative;align-self:center}
+.buyopt[data-opt="once"].sel .wn-oradio{border-color:var(--berry)}
+.buyopt[data-opt="once"].sel .wn-oradio::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--berry)}
+
+/* ===== v5: clean product image (Grüns-style) — remove floating card over hero ===== */
+.gallery .clin-banner{display:none!important}
+.gs-hero .gphoto{object-fit:contain;background:#fff}
+.gallery .gstage{background:#fff}
+
+/* ===== v6: Grüns-style accordion (replaces tab bar) ===== */
+.wn-acc{border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden;margin-top:8px}
+.wn-ac{border-bottom:1px solid var(--line)}
+.wn-ac:last-child{border-bottom:0}
+.wn-ac-h{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:none;border:0;padding:18px 20px;font-family:'Fraunces',serif;font-size:17px;font-weight:600;color:var(--plum-deep);cursor:pointer;text-align:left;font-family:'Fraunces',serif}
+.wn-ac-i{flex:0 0 auto;width:18px;height:18px;position:relative}
+.wn-ac-i::before,.wn-ac-i::after{content:"";position:absolute;background:var(--berry);border-radius:2px}
+.wn-ac-i::before{top:8px;left:0;right:0;height:2px}
+.wn-ac-i::after{left:8px;top:0;bottom:0;width:2px;transition:transform .2s}
+.wn-ac.open .wn-ac-i::after{transform:scaleY(0)}
+.wn-ac-b{display:none;padding:0 20px 20px}
+.wn-ac.open .wn-ac-b{display:block}
+
+/* ===== v6: clean product gallery for the new photos ===== */
+.gallery .gstage{background:#fff}
+.gs-hero .gphoto{object-fit:contain;background:#fff}
+
+/* ===== v7: flavor options as image cards (Grüns-style) ===== */
+.flavor-picker .flavor-options{grid-template-columns:1fr 1fr;gap:12px}
+.flavor-picker .flavor-options label>span{display:block;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;padding:0;min-height:0}
+.flavor-picker .flavor-options input:checked+span{border:2px solid var(--berry)!important;background:#fff!important;padding:0!important;color:var(--plum-deep)!important}
+.flavor-picker .wn-fimg{display:block;aspect-ratio:1/1;background:#FBF7F1}
+.flavor-picker .wn-fimg img{width:100%;height:100%;object-fit:cover;display:block}
+.flavor-picker .wn-fname{display:block;padding:11px 8px;text-align:center;font-size:13.5px;font-weight:600;color:var(--plum-deep)}
+/* gallery thumbnail tiles (kept designed slides) */
+.gthumb.tile{display:flex;align-items:center;justify-content:center;text-align:center;font-size:9px;font-weight:700;line-height:1.1;padding:4px;font-family:'Fraunces',serif;color:var(--plum)}
+
+/* ===== v8: fill the gallery frame (no letterboxing) ===== */
+.gallery .gstage{aspect-ratio:3/4!important;background:#fff}
+.gs-hero .gphoto{object-fit:cover!important}
+
+/* ===== v9: GRÜNS MOBILE RHYTHM — tighter, consistent section spacing ===== */
+@media(max-width:640px){
+  section{padding:44px 0}
+  .hero{padding:40px 0 34px}
+  .guar,.founder,.final,.clinicians{padding:48px 0}
+  .reframe{padding:40px 0}
+  /* consistent card radius + breathing room between stacked content cards */
+  .band-cream,.band-blush{padding:40px 0}
+  /* tighten oversized display headings on mobile so sections read like Grüns */
+  .ov-h,.why-h,.dec-h,.gd-h{line-height:1.08}
+  /* even gap under the buy area before the tabs/pain band */
+  .wn-tabs{margin-top:8px}
+  .wn-pain{padding:44px 0}
+}
+@media(max-width:400px){
+  section{padding:40px 0}
+  .wrap{padding-left:16px;padding-right:16px}
+}
+
+/* ===== v10: Grüns-style additions (badges moved, side tab, trust strip, bundle banner, sections) ===== */
+/* trust badges now sit UNDER the ATC button */
+.buybox .wn-tbadges{margin:14px 0 4px}
+
+/* accordion extra copy blocks */
+.wn-ac-p{margin:0;color:var(--ink);line-height:1.62;font-size:14.5px}
+.wn-ac-note{margin:12px 0 0;color:var(--ink-soft);font-size:12.5px;line-height:1.55}
+
+/* subscribe headline banner (Grüns green bar → here brand burgundy) */
+.wn-subbanner{background:var(--burgundy);color:#fff;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;text-align:center;padding:8px 10px;margin:0 -18px 16px;border-radius:12px 12px 0 0;line-height:1.3;position:relative;z-index:5}
+.buyopt.wn-has-banner{padding-top:0;overflow:hidden;position:relative}
+.buyopt.sub-card.wn-has-banner>.bf-tag{display:none}
+@media(max-width:640px){.wn-subbanner{margin:0 -16px 14px}}
+
+/* floating "Get 25% Off" side tab */
+.wn-sidetab{position:fixed;left:0;top:42%;z-index:140;transform-origin:left top;transform:rotate(-90deg) translateX(-50%);background:var(--burgundy);color:#fff;border:0;border-radius:0 0 12px 12px;padding:9px 18px;font-size:12.5px;font-weight:800;letter-spacing:.03em;cursor:pointer;box-shadow:0 6px 20px #40162c33;white-space:nowrap}
+.wn-sidetab:hover{background:var(--plum)}
+
+/* gallery trust strip under the thumbnails */
+.wn-gtrust{margin:16px 2px 4px;display:flex;flex-direction:column;gap:12px}
+.wn-vnl{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:13px 16px;font-size:13.5px;font-weight:700;color:var(--plum-deep);cursor:pointer;font-family:'Fraunces',serif}
+.wn-vnl svg{width:17px;height:17px;color:var(--berry)}
+.wn-vnl:hover{border-color:var(--berry);background:var(--blush-soft)}
+.wn-tested{display:flex;align-items:center;gap:11px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.wn-tcheck{flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:var(--blush-soft);display:flex;align-items:center;justify-content:center}
+.wn-tcheck svg{width:15px;height:15px;color:var(--berry)}
+.wn-tested b{display:block;font-size:13px;color:var(--plum-deep)}
+.wn-tested small{display:block;font-size:11.5px;color:var(--ink-soft);line-height:1.4}
+
+/* Grüns-style content sections */
+.wn-gsec{padding:56px 0}
+.wn-stats{background:var(--cream)}
+.wn-gh{font-family:'Fraunces',serif;font-size:34px;line-height:1.1;color:var(--plum-deep);margin:0 0 10px;font-weight:600}
+.wn-gh em{color:var(--berry);font-style:italic}
+.wn-gh-c{text-align:center}
+.wn-gsub{color:var(--ink-soft);font-size:16px;margin:0 0 28px;max-width:560px}
+.wn-gsub-c{text-align:center;margin-left:auto;margin-right:auto}
+.wn-statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:28px}
+.wn-stat .wn-statn{font-family:'Fraunces',serif;font-size:56px;font-weight:600;color:var(--berry);line-height:1}
+.wn-stat p{color:var(--ink);font-size:13.5px;line-height:1.5;margin:10px 0 0}
+.wn-stat sup{color:var(--ink-soft)}
+.wn-gcta{display:inline-block;background:var(--burgundy);color:#fff;text-decoration:none;font-weight:700;padding:14px 26px;border-radius:999px;font-size:15px}
+.wn-gcta:hover{background:var(--plum)}
+.wn-gfine{color:var(--ink-soft);font-size:11px;margin:16px 0 0;opacity:.8}
+/* us vs them */
+.wn-vs{background:var(--blush-soft)}
+.wn-vtable{max-width:720px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.wn-vrow{display:grid;grid-template-columns:1.5fr .9fr .9fr .9fr;align-items:center;padding:14px 16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink)}
+.wn-vrow:first-child{border-top:0}
+.wn-vhead{background:var(--cream);font-weight:700;color:var(--plum-deep);font-size:12px}
+.wn-vhead .wn-vus{color:var(--berry)}
+.wn-vrow>span{text-align:center}
+.wn-vrow>span:first-child{text-align:left;font-weight:600;color:var(--plum)}
+.wn-vus{color:var(--berry);font-weight:800;font-size:17px}
+.wn-vno{color:#C9B6BD;font-weight:700;font-size:16px}
+.wn-vrow .wn-vus:not(:first-child){background:var(--blush-soft)}
+
+@media(max-width:640px){
+  .wn-gsec{padding:44px 0}
+  .wn-gh{font-size:26px}
+  .wn-gsub{font-size:14.5px}
+  .wn-statgrid{grid-template-columns:1fr;gap:20px;text-align:center}
+  .wn-stat .wn-statn{font-size:50px}
+  .wn-sidetab{top:auto;bottom:88px;font-size:11.5px;padding:8px 14px}
+  .wn-vrow{grid-template-columns:1.4fr .8fr .8fr .8fr;font-size:11.5px;padding:12px 10px}
+  .wn-vhead{font-size:10.5px}
+  .wn-subbanner{font-size:9.5px}
+}
+/* a little more space around the thumbnail row */
+#gthumbs{margin-top:14px}
+
+/* ===== v11: remove clinical-cards section + add split/survey/reviews sections ===== */
+.clinicians{display:none!important}
+
+/* 10a split problem section */
+.wn-split{background:var(--cream)}
+.wn-split-in{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
+.wn-geye{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--berry);margin:0 0 10px}
+.wn-splitstats{display:flex;gap:34px;margin:22px 0 26px}
+.wn-splitstats .wn-statn{font-family:'Fraunces',serif;font-size:52px;font-weight:600;color:var(--berry);line-height:1}
+.wn-splitstats p{font-size:13px;color:var(--ink);line-height:1.5;margin:8px 0 0}
+.wn-split-img{border-radius:22px;overflow:hidden;box-shadow:0 24px 60px #40162c1a;aspect-ratio:4/5}
+.wn-split-img img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* 10b survey + quality */
+.wn-survey{background:var(--blush-soft)}
+.wn-surveygrid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin:8px 0 14px;text-align:center}
+.wn-sv .wn-statn{font-family:'Fraunces',serif;font-size:52px;font-weight:600;color:var(--berry);line-height:1}
+.wn-sv p{font-size:13px;color:var(--ink);line-height:1.5;margin:10px 0 0}
+.wn-svnote{text-align:center;color:var(--ink-soft);font-size:11px;margin:4px 0 0;opacity:.85}
+.wn-qdiv{height:1px;background:var(--line);margin:34px 0 30px}
+.wn-qh{font-family:'Fraunces',serif;font-size:28px;color:var(--plum-deep);text-align:center;margin:0 0 8px;font-weight:600}
+.wn-qgrid{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 30px;margin-top:18px}
+.wn-qitem{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--plum)}
+.wn-qx{flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--berry);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px}
+
+/* 10d reviews */
+.wn-reviews2{background:var(--cream)}
+.wn-rhead{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px}
+.wn-rbig{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--plum-deep)}
+.wn-rbigstars{color:var(--lemon);font-size:18px;letter-spacing:1px}
+.wn-rcount{color:var(--ink-soft);font-size:13px}
+.wn-rtabs{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:22px 0 28px}
+.wn-rtab{background:#fff;border:1.5px solid var(--line);color:var(--plum);border-radius:999px;padding:9px 20px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:'Fraunces',serif}
+.wn-rtab.on{background:var(--burgundy);border-color:var(--burgundy);color:#fff}
+.wn-rgrid{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;padding:4px 2px 16px;scrollbar-width:none}
+.wn-rgrid::-webkit-scrollbar{display:none}
+.wn-rcard{flex:0 0 340px;max-width:88%;scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 20px;display:flex;flex-direction:column;gap:12px}
+.wn-rstars{color:var(--lemon);font-size:15px;letter-spacing:1px}
+.wn-rtext{color:var(--ink);font-size:14.5px;line-height:1.6;margin:0;flex:1}
+.wn-rwho{display:flex;align-items:center;gap:11px}
+.wn-ravt{flex:0 0 38px;width:38px;height:38px;border-radius:50%;background:var(--blush);color:var(--plum-deep);display:flex;align-items:center;justify-content:center;font-weight:800;font-family:'Fraunces',serif}
+.wn-rwho b{display:block;font-size:13.5px;color:var(--plum-deep)}
+.wn-rwho small{display:block;font-size:11.5px;color:var(--ink-soft)}
+
+@media(max-width:860px){
+  .wn-split-in{grid-template-columns:1fr;gap:26px}
+  .wn-split-img{order:-1;aspect-ratio:16/11}
+  .wn-surveygrid{grid-template-columns:1fr 1fr;gap:22px}
+  .wn-rgrid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .wn-splitstats{gap:22px}
+  .wn-splitstats .wn-statn,.wn-sv .wn-statn{font-size:42px}
+  .wn-rgrid{grid-template-columns:1fr}
+  .wn-qh{font-size:23px}
+  .wn-rtab{padding:8px 15px;font-size:12.5px}
+  .wn-rtabs{gap:8px}
+}
+
+/* ===== v12: GRÜNS-STYLE HEADER (logo pill + gold Shop now + cart + hamburger) ===== */
+nav .navrow{gap:10px}
+/* logo as a rounded pill */
+nav .logo{background:var(--burgundy);color:#fff!important;padding:9px 18px 10px;border-radius:999px;font-size:19px;line-height:1;margin-right:auto;letter-spacing:-.01em;box-shadow:0 2px 10px #40162c22}
+nav .logo:hover{background:var(--plum)}
+/* Shop now → gold accent pill (Grüns-style), dark text */
+nav .navrow>.btn{background:var(--lemon)!important;color:var(--plum-deep)!important;border-radius:999px!important;font-weight:800;box-shadow:0 2px 10px #e6b24a44!important;border:0!important}
+nav .navrow>.btn:hover{filter:brightness(.96)}
+/* cart → clean icon button (no filled square) */
+nav .cart-btn{background:transparent!important;color:var(--plum-deep)!important;width:40px;height:40px;border-radius:50%}
+nav .cart-btn:hover{background:var(--blush-soft)!important}
+/* hamburger */
+.wn-burger{flex:0 0 auto;width:40px;height:40px;border-radius:50%;border:0;background:transparent;color:var(--plum-deep);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.wn-burger:hover{background:var(--blush-soft)}
+.wn-burger svg{width:22px;height:22px}
+/* hamburger dropdown reveals the nav links */
+@media(max-width:760px){
+  nav .navrow{flex-wrap:nowrap}
+  nav.wn-nav-open .navlinks{display:flex!important;position:absolute;top:100%;left:0;right:0;width:100%;flex-direction:column;align-items:stretch;background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 16px;gap:2px;margin:0;box-shadow:0 14px 30px #40162c14;z-index:120}
+  nav.wn-nav-open .navlinks a{padding:12px 4px;border-top:1px solid var(--line);font-size:15px;color:var(--plum)}
+  nav.wn-nav-open .navlinks a:first-child{border-top:0}
+  nav .navrow>.btn{margin-left:0;padding:9px 16px;font-size:13px}
+  nav .logo{font-size:17px;padding:8px 15px}
+}
+/* desktop: keep links inline, show burger only on mobile */
+@media(min-width:761px){.wn-burger{display:none}}
+
+/* ===== v13: GRÜNS-STYLE CART DRAWER ===== */
+/* discount auto-applied banner */
+.cd-autodisc{display:flex;align-items:center;justify-content:center;gap:8px;background:#2E7D52;color:#fff;font-size:13px;font-weight:700;letter-spacing:.01em;padding:11px 14px;text-align:center}
+.cd-autodisc b{font-weight:800}
+.cd-ad-ic{display:inline-flex;width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.22);align-items:center;justify-content:center}
+.cd-ad-ic svg{width:12px;height:12px}
+/* free-shipping unlocked (success) state */
+.cd-ship .cd-ship-fill{transition:width .4s ease,background .3s}
+.cd-ship.cd-unlocked .cd-ship-fill{background:#2E7D52!important}
+.cd-ship.cd-unlocked .cd-ship-msg{color:#2E7D52;font-weight:800}
+/* subscribe upsell as "Most Popular" card */
+.cd-upsell{position:relative;background:var(--blush-soft);border:1.5px solid var(--berry);border-radius:16px;padding:18px 16px 16px;margin:4px 0 8px;overflow:visible}
+.cd-mp{position:absolute;top:-11px;left:16px;background:var(--lemon);color:var(--plum-deep);font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:4px 12px;border-radius:999px;box-shadow:0 2px 8px #e6b24a55}
+.cd-perks{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:9px}
+.cd-perks li{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--plum);font-weight:600}
+.cd-perks li svg{flex:0 0 17px;width:17px;height:17px;color:#2E7D52}
+/* subtotal discount pill */
+.cd-discpill{display:inline-block;background:var(--lemon);color:var(--plum-deep);font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;margin-left:10px;vertical-align:middle}
+/* secure checkout + lock */
+.cd-checkout{display:flex;align-items:center;justify-content:center;gap:9px}
+.cd-lock2{display:inline-flex}
+.cd-lock2 svg{width:17px;height:17px}
+/* 3-item trust row */
+.cd-trow{display:grid!important;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px 4px 2px!important;text-align:center;border-top:1px solid var(--line);margin-top:4px}
+.cd-trow .cd-trc{display:flex;flex-direction:column;gap:1px}
+.cd-trow .cd-trc b{font-size:13px;color:var(--plum-deep)}
+.cd-trow .cd-trc small{font-size:10.5px;color:var(--ink-soft)}
+
+/* ===== v14: CART DRAWER — Grüns-exact layout & sizing ===== */
+#cart-drawer .cd-shell{display:flex;flex-direction:column}
+#cart-drawer .cd-header{padding:18px 18px 14px;border-bottom:1px solid var(--line);background:#fff}
+#cart-drawer .cd-header h2{font-size:19px;color:var(--plum-deep);font-family:'Fraunces',serif}
+#cart-drawer .cd-count{font-size:13px;color:var(--ink-soft);font-weight:500}
+#cart-drawer .cd-content{padding:0}
+/* 1) free-shipping block (pale, celebratory) */
+.cd-ship.cd-fsblock{background:var(--blush-soft);margin:0;padding:12px 18px 14px;text-align:center;border:0;border-radius:0}
+.cd-ship.cd-fsblock .cd-ship-msg{font-size:13.5px;color:var(--plum);font-weight:600;margin-bottom:8px}
+.cd-ship.cd-fsblock .cd-ship-track{height:7px;border-radius:999px;background:#eadfe0;overflow:hidden}
+.cd-ship.cd-fsblock .cd-ship-fill{height:100%;background:var(--berry);border-radius:999px;transition:width .4s,background .3s}
+.cd-ship.cd-fsblock.cd-unlocked{background:#E6F2EA}
+.cd-ship.cd-fsblock.cd-unlocked .cd-ship-msg{color:#2E7D52;font-weight:700}
+.cd-ship.cd-fsblock.cd-unlocked .cd-ship-fill{background:#2E7D52}
+/* 2) discount auto-applied banner */
+.cd-autodisc{background:#2E7D52;color:#fff;font-size:13px;font-weight:700;text-align:center;padding:11px 14px;letter-spacing:.01em}
+/* 3) item (Grüns sizing) */
+.cd-item-label{padding:16px 18px 8px;font-size:13px;font-weight:700;color:var(--plum-deep)}
+#cart-drawer .cd-item{position:relative;display:flex;gap:14px;padding:0 18px 16px;align-items:flex-start}
+#cart-drawer .cd-item>#cd-photo,#cart-drawer .cd-item>img{width:76px;height:76px;min-width:76px;border-radius:12px;object-fit:cover;background:#fff}
+#cart-drawer .cd-item-body{flex:1;min-width:0}
+#cart-drawer .cd-item-body h3{font-size:16px;color:var(--plum-deep);margin:0 0 2px;font-family:'Fraunces',serif}
+#cart-drawer .cd-item-body p{font-size:12.5px;color:var(--ink-soft);margin:1px 0;line-height:1.35}
+#cart-drawer .cd-price{margin-top:6px}
+#cart-drawer .cd-price-now{font-size:16px;font-weight:800;color:var(--plum-deep)}
+#cart-drawer .cd-price-was{font-size:13px;color:var(--ink-soft);margin-left:6px}
+.cd-item-x{position:absolute;top:0;right:16px;width:22px;height:22px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink-soft);font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.cd-savepill{display:inline-flex;align-items:center;gap:6px;background:#E6F2EA;color:#2E7D52;font-size:11px;font-weight:700;padding:5px 10px;border-radius:7px;margin-top:10px}
+.cd-savepill svg{width:12px;height:12px}
+.cd-item-ctl{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
+.cd-qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.cd-qty button{width:34px;height:34px;border:0;background:#fff;color:var(--plum);font-size:16px;cursor:pointer}
+.cd-qty span{min-width:30px;text-align:center;font-size:13.5px;font-weight:700;color:var(--plum-deep)}
+.cd-codepill{display:inline-flex;align-items:center;gap:6px;border:1px dashed var(--berry);color:var(--berry);font-size:11.5px;font-weight:700;padding:7px 12px;border-radius:999px}
+.cd-codepill svg{width:12px;height:12px}
+/* 4) upsell compact promo box */
+#cart-drawer .cd-upsell{position:relative;background:var(--blush-soft);border:0;border-radius:14px;margin:4px 18px 14px;padding:20px 16px 16px;text-align:center}
+#cart-drawer .cd-mp{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--lemon);color:var(--plum-deep);font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:4px 14px;border-radius:999px;white-space:nowrap;box-shadow:0 2px 8px #e6b24a55}
+#cart-drawer .cd-sub-row{display:block;border:0;padding:0;margin:0}
+#cart-drawer .cd-sub-info{display:block}
+#cart-drawer .cd-sub-label{display:block;font-size:16px;font-weight:800;color:var(--plum-deep);font-family:'Fraunces',serif}
+.cd-perks{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:9px;text-align:left}
+.cd-perks li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--plum);font-weight:500;line-height:1.35}
+.cd-perks li svg{flex:0 0 16px;width:16px;height:16px;color:#2E7D52;margin-top:1px}
+/* 5) footer + subtotal */
+#cart-drawer .cd-footer{padding:16px 18px max(16px,env(safe-area-inset-bottom));border-top:1px solid var(--line);background:#fff}
+#cart-drawer .cd-subtotal{display:flex;align-items:center;justify-content:space-between;font-size:17px;font-weight:800;color:var(--plum-deep);margin:0 0 14px}
+#cart-drawer .cd-subtotal>span:first-child{font-family:'Fraunces',serif}
+.cd-discpill{display:inline-block;background:var(--lemon);color:var(--plum-deep);font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;margin-left:auto;margin-right:10px}
+#cart-drawer .cd-sub-was{font-size:14px;color:var(--ink-soft);font-weight:500;margin-right:8px}
+/* 6) checkout button */
+#cart-drawer .cd-checkout{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:var(--berry);color:#fff;border:0;border-radius:999px;padding:17px;font-size:16px;font-weight:800;cursor:pointer}
+#cart-drawer .cd-checkout:hover{background:var(--berry-deep)}
+.cd-lock2{display:inline-flex}.cd-lock2 svg{width:17px;height:17px}
+/* 7) trust row */
+.cd-trow{display:grid!important;grid-template-columns:repeat(3,1fr);gap:6px;padding:14px 0 2px!important;text-align:center;border:0!important;margin:0}
+.cd-trow .cd-trc{display:flex;flex-direction:column;align-items:center;gap:1px}
+.cd-trow .cd-trc-ic{font-size:14px;color:var(--berry);line-height:1;margin-bottom:2px}
+.cd-trow .cd-trc b{font-size:12px;color:var(--plum-deep)}
+.cd-trow .cd-trc small{font-size:10px;color:var(--ink-soft)}
+
+/* ===== v15: auto-applied banner fades out after 4s ===== */
+.cd-autodisc{overflow:hidden;max-height:60px;transition:opacity .45s ease,max-height .45s ease,padding .45s ease}
+.cd-autodisc.cd-ad-hide{opacity:0;max-height:0;padding-top:0;padding-bottom:0}
